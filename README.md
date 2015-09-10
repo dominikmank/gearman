@@ -1,29 +1,30 @@
 # Installation
 Über Composer
 
-    ```json
-        {
-            "require": {
-                "dmank/gearman": "@stable"
-            },
-        }
-    ```
+```json
+    {
+        "require": {
+            "dmank/gearman": "@stable"
+        },
+    }
+```
+
 # Benutzung
 ## Client
 Beispiel Benutzung des Dispatchers
 
-    ```php
-        <?php
-        require_once dirname(__FILE__).'/../vendor/autoload.php';
+```php
+<?php
+require_once dirname(__FILE__).'/../vendor/autoload.php';
 
-        // we can multiple servers due the collection
-        $serverCollection = new \dmank\gearman\ServerCollection();
-        // adding a local gearman connection
-        $server = new \dmank\gearman\Server();
-        $serverCollection->add($server);
-        //tada , we can use the client!
-        $client = new \dmank\gearman\Client($serverCollection);
-    ```
+// we can multiple servers due the collection
+$serverCollection = new \dmank\gearman\ServerCollection();
+// adding a local gearman connection
+$server = new \dmank\gearman\Server();
+$serverCollection->add($server);
+//tada , we can use the client!
+$client = new \dmank\gearman\Client($serverCollection);
+```
     
 ### Asynchrone Abarbeitung
 Methode "executeJobInBrackground", erwartet den Methodennamen der ausgeführt werden soll sowie den Workload.
@@ -45,35 +46,35 @@ Ein weiteres Beispiel wäre eine maximale Zeit für den Worker einzustellen. Hie
 Modus ist, diesen beenden.
 Beispiel Worker
 
-    ```php
-    <?php
-    require_once dirname(__FILE__).'/../vendor/autoload.php';
-    
-    // we can multiple servers due the collection
-    $serverCollection = new \dmank\gearman\ServerCollection();
-    // adding a local gearman connection
-    $server = new \dmank\gearman\Server();
-    $serverCollection->add($server);
-    
-    //no must have, but nice to have!
-    $log = new \Monolog\Logger('jobworker');
-    $streamHandler = new \Monolog\Handler\StreamHandler('php://output');
-    $streamHandler->setLevel(\Monolog\Logger::DEBUG);
-    $log->pushHandler($streamHandler);
-    
-    $eventDispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
-    $eventDispatcher->addSubscriber(new \dmank\gearman\event\subscriber\Monolog($log));
-    
-    $jobCollection = new \dmank\gearman\JobCollection();
-    
-    $worker = new \dmank\gearman\Worker(
-        $serverCollection,
-        $jobCollection,
-        $eventDispatcher
-    );
-    
-    $worker->run();
-    ```
+```php
+<?php
+require_once dirname(__FILE__).'/../vendor/autoload.php';
+
+// we can multiple servers due the collection
+$serverCollection = new \dmank\gearman\ServerCollection();
+// adding a local gearman connection
+$server = new \dmank\gearman\Server();
+$serverCollection->add($server);
+
+//no must have, but nice to have!
+$log = new \Monolog\Logger('jobworker');
+$streamHandler = new \Monolog\Handler\StreamHandler('php://output');
+$streamHandler->setLevel(\Monolog\Logger::DEBUG);
+$log->pushHandler($streamHandler);
+
+$eventDispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+$eventDispatcher->addSubscriber(new \dmank\gearman\event\subscriber\Monolog($log));
+
+$jobCollection = new \dmank\gearman\JobCollection();
+
+$worker = new \dmank\gearman\Worker(
+    $serverCollection,
+    $jobCollection,
+    $eventDispatcher
+);
+
+$worker->run();
+```
     
 ### Events
 Der Worker stellt über Eventing folgende Events bereit: (In dieser Reihenfolge)
