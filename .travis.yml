@@ -1,0 +1,18 @@
+language: php
+php:
+- 5.3
+- 5.4
+- 5.5
+- 5.6
+- hhvm
+
+install:
+- sudo apt-get install gearman gearman-job-server libgerman-dev
+- composer install
+
+script:
+- phpunit
+
+matrix:
+  allow_failures:
+  - php: hhvm
