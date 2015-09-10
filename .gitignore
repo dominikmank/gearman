@@ -1,0 +1,15 @@
+/.cache
+/.settings
+~$*
+.tags*
+.vagrant
+*.sublime*
+.project
+.idea*
+/build/
+vendor/
+/.metadata
+/.project
+/.buildpath
+/.project.bak
+RemoteSystemsTempFiles/**/*

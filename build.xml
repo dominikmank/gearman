@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Gearman Worker Dispatcher Library" default="build-parallel" basedir=".">
+
+    <property name="build.path" value="${project.basedir}/build/" />
+
+    <available property="composer.exists" file="${build.path}/composer.phar" />
+    <available property="apigen.exists" file="${build.path}/apigen.phar" />
+
+    <target name="build" depends="prepare,vendors,apigeninstall,lintapp,apigen,phpunit"/>
+
+    <target name="build-parallel" depends="prepare,vendors,apigeninstall">
+        <parallel threadCount="1">
+            <phingcall target="lintapp" />
+            <phingcall target="apigen" />
+            <phingcall target="phpunit" />
+        </parallel>
+    </target>
+
+    <target name="prepare" depends="clean" description="Prepare for build">
+        <mkdir dir="${project.basedir}/build" description="Creating Folder for the build"/>
+        <mkdir dir="${project.basedir}/build/docs" description="Creating Docs folder" />
+        <mkdir dir="${project.basedir}/build/logs" description="Creating Folder for logs"/>
+    </target>
+
+    <target name="clean" description="Cleanup build artifacts">
+        <delete dir="${project.basedir}/build/logs" />
+        <delete dir="${project.basedir}/build/docs" />
+    </target>
+
+    <target name="vendors" depends="composer">
+        <exec executable="php">
+            <arg value="${build.path}/composer.phar" />
+            <arg value="--working-dir=${project.basedir}" />
+            <arg value="install" />
+            <arg value="--ignore-platform-reqs" />
+        </exec>
+    </target>
+
+    <target name="composer" unless="composer.exists" description="Installing Composer if not exists">
+        <exec command="curl -sS https://getcomposer.org/installer | php -- --install-dir=${build.path}" />
+        <chmod file="${build.path}/composer.phar" mode="775" />
+    </target>
+
+    <target name="apigeninstall" unless="apigen.exists" description="Installing Apigen if not exists">
+        <exec command="curl -o ${build.path}/apigen.phar -L http://apigen.org/apigen.phar" />
+        <chmod file="${build.path}/apigen.phar" mode="775" />
+    </target>
+
+    <target name="lintapp" description="Perform syntax check of sourcecode files">
+        <phplint haltonfailure="true">
+            <fileset dir="${project.basedir}/src">
+                <include name="**/*.php" />
+            </fileset>
+        </phplint>
+    </target>
+
+    <target name="apigen" depends="apigeninstall" description="Generate the API Documentation">
+        <exec executable="php" logoutput="true" checkreturn="true">
+            <arg value="${build.path}/apigen.phar" />
+            <arg value="generate" />
+            <arg value="--source"/>
+            <arg path="${project.basedir}/src/" />
+            <arg value="--destination" />
+            <arg path="${build.path}/docs/" />
+            <arg value="--debug" />
+            <arg value="--todo" />
+            <arg value="--deprecated" />
+        </exec>
+    </target>
+
+    <target name="phpunit" description="Run unit tests with PHPUnit">
+        <exec executable="php" logoutput="true" checkreturn="true">
+            <arg value="${project.basedir}/vendor/bin/phpunit" />
+            <arg value="-c" />
+            <arg path="${project.basedir}/phpunit.xml" />
+            <arg value="--log-junit" />
+            <arg path="${project.basedir}/build/logs/junit.xml" />
+        </exec>
+    </target>
+</project>
