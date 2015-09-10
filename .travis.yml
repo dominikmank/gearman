@@ -11,11 +11,12 @@ before_install:
   - composer self-update
 
 install:
-- sudo apt-get install gearman gearman-job-server libgearman-dev php5-gearman
+- sudo apt-get install gearman gearman-job-server libgearman-dev
+- printf "\n" |  pecl install gearman-1.0.3
 - travis_retry composer install --no-interaction --prefer-source
 
 script:
-- phpunit -c phpunit.xml
+- phpunit
 
 matrix:
   fast_finish: true
