@@ -78,11 +78,12 @@ $worker->run();
     
 ### Events
 Der Worker stellt über Eventing folgende Events bereit: (In dieser Reihenfolge)
-    * WorkerEvent::EVENT_BEFORE_RUN
-    * ConnectToServerEvent::CONNECT_TO_SERVER_EVENT
-    * ConnectToServerEvent::CONNECTED_TO_SERVER_EVENT
-    * RegisterFunctionEvent::EVENT_ON_BEFORE_REGISTER_FUNCTIONS
-    * RegisterFunctionEvent::EVENT_ON_AFTER_REGISTER_FUNCTIONS
+
+* WorkerEvent::EVENT_BEFORE_RUN
+* ConnectToServerEvent::CONNECT_TO_SERVER_EVENT
+* ConnectToServerEvent::CONNECTED_TO_SERVER_EVENT
+* RegisterFunctionEvent::EVENT_ON_BEFORE_REGISTER_FUNCTIONS
+* RegisterFunctionEvent::EVENT_ON_AFTER_REGISTER_FUNCTIONS
 
 Die folgenden werden Abfragenbedingt ausgeführt:
 
