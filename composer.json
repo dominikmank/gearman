@@ -9,7 +9,7 @@
     "role": "developer"
   }],
   "require" : {
-    "php" : ">=5.3.0",
+    "php" : ">=5.3.9",
     "psr/log": "1.*@stable",
     "symfony/event-dispatcher": "2.*@stable",
     "ext-gearman": "*",
