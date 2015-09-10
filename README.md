@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dominikmank/gearman.svg)](https://travis-ci.org/dominikmank/gearman)
+
 # Installation
 Über Composer
 
