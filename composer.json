@@ -1,5 +1,5 @@
 {
-  "name": "mo/gearman",
+  "name": "dmank/gearman",
   "type": "library",
   "description": "Gearman Worker / Dispatcher Implementation",
   "keywords": ["gearman", "php", "worker", "dispatcher"],
