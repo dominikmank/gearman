@@ -7,7 +7,7 @@ php:
 - hhvm
 
 install:
-- sudo apt-get install gearman gearman-job-server libgerman-dev
+- sudo apt-get install gearman gearman-job-server libgearman-dev
 - composer install
 
 script:
