@@ -4,7 +4,7 @@ namespace dmank\gearman;
 class Client
 {
     /**
-     * @var \GearmanWorker
+     * @var \GearmanClient
      */
     private $realClient;
     /**

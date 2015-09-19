@@ -3,6 +3,23 @@ namespace dmank\gearman;
 
 class JobStatus
 {
+    /**
+     * @var bool
+     */
+    private $isKnown;
+    /**
+     * @var bool
+     */
+    private $isRunning;
+    /**
+     * @var int
+     */
+    private $numerator;
+    /**
+     * @var int
+     */
+    private $denominator;
+
     public function __construct(array $status = array())
     {
         $this->isKnown = array_key_exists(0, $status) ? $status[0] : false;
