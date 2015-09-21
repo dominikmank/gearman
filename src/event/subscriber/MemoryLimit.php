@@ -44,7 +44,7 @@ class MemoryLimit implements EventSubscriberInterface
     public function onAfterRun(WorkerEvent $event)
     {
         if ($this->memoryLimitAlmostExceeded()) {
-            $this->noticeLogger();
+            $this->informLogger();
 
             $event->getWorkerInstance()->destroyWorker();
         }
@@ -61,7 +61,7 @@ class MemoryLimit implements EventSubscriberInterface
         );
     }
 
-    private function noticeLogger()
+    private function informLogger()
     {
         if (!is_null($this->logger)) {
             $this->logger->notice(
@@ -74,6 +74,10 @@ class MemoryLimit implements EventSubscriberInterface
         }
     }
 
+    /**
+     * @param $value
+     * @return int
+     */
     private function returnBytes($value)
     {
         $value = trim($value);
@@ -87,9 +91,6 @@ class MemoryLimit implements EventSubscriberInterface
                 break;
         }
 
-        return $value;
+        return (int)$value;
     }
-
-
-
 }

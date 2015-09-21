@@ -8,13 +8,19 @@ class MaxRuntimeTest extends \PHPUnit_Framework_TestCase
 {
     public function testMaxRuntimeExceeded()
     {
-        $subscriber = new MaxRuntime('-1 second');
         $worker = $this->getMockBuilder('dmank\gearman\Worker')
             ->disableOriginalConstructor()
             ->getMock();
 
         $worker->expects($this->exactly(2))
             ->method('destroyWorker');
+
+        $logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+
+        $logger->expects($this->exactly(2))
+            ->method('notice');
+
+        $subscriber = new MaxRuntime('-1 second', $logger);
 
         $workerEvent = new WorkerEvent($worker);
         $subscriber->onAfterRun($workerEvent);
@@ -34,5 +40,22 @@ class MaxRuntimeTest extends \PHPUnit_Framework_TestCase
         $workerEvent = new WorkerEvent($worker);
         $subscriber->onAfterRun($workerEvent);
         $subscriber->onNoJobs($workerEvent);
+    }
+
+    public function testOnBeforeRunInform()
+    {
+        $worker = $this->getMockBuilder('dmank\gearman\Worker')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+
+        $logger->expects($this->once())
+            ->method('notice');
+
+        $subscriber = new MaxRuntime('+1 year', $logger);
+        $workerEvent = new WorkerEvent($worker);
+
+        $subscriber->onBeforeRun($workerEvent);
     }
 }

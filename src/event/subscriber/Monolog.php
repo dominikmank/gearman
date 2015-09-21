@@ -112,7 +112,8 @@ class Monolog implements EventSubscriberInterface
     {
         $this->logger->debug(
             sprintf(
-                'I got %s jobs', $registerFunctionEvent->getJobs()->count()
+                'I got %s jobs',
+                $registerFunctionEvent->getJobs()->count()
             )
         );
     }
@@ -121,7 +122,8 @@ class Monolog implements EventSubscriberInterface
     {
         $this->logger->debug(
             sprintf(
-                'Added %s jobs to the Worker', $registerFunctionEvent->getJobs()->count()
+                'Added %s jobs to the Worker',
+                $registerFunctionEvent->getJobs()->count()
             )
         );
     }

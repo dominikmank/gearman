@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/dominikmank/gearman.svg)](https://travis-ci.org/dominikmank/gearman)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.3.9-8892BF.svg?style=flat-square)](https://php.net/)
 [![Latest Stable Version](https://img.shields.io/packagist/v/dmank/gearman.svg?style=flat-square)](https://packagist.org/packages/dmank/gearman)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dominikmank/gearman/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dominikmank/gearman/?branch=master)
+
 # Installation
 Über Composer
 
