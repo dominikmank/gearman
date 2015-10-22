@@ -5,7 +5,6 @@ use dmank\gearman\event\ConnectToServerEvent;
 use dmank\gearman\event\FunctionEvent;
 use dmank\gearman\event\FunctionFailureEvent;
 use dmank\gearman\event\RegisterFunctionEvent;
-use dmank\gearman\event\subscriber\DefaultWorkerBehaviour;
 use dmank\gearman\event\WorkerEvent;
 use dmank\gearman\event\WorkerExceptionEvent;
 use dmank\gearman\exception\NoFunctionGiven;

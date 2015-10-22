@@ -16,7 +16,7 @@
 
 # Benutzung
 ## Client
-Beispiel Benutzung des Dispatchers
+Beispiel Benutzung des Clients
 
 ```php
 <?php
@@ -32,7 +32,7 @@ $client = new \dmank\gearman\Client($serverCollection);
 ```
     
 ### Asynchrone Abarbeitung
-Methode "executeJobInBrackground", erwartet den Methodennamen der ausgeführt werden soll sowie den Workload.
+Methode "executeInBackground", erwartet den Methodennamen der ausgeführt werden soll sowie den Workload.
 Als Rückgabe bekommt man das zugewiesene Jobhandle zurück um den Status überprüfen zu können.
 
 ### Synchrone Abarbeitung
@@ -120,3 +120,16 @@ Nach erfolgreicher Ausführung
 Im Fehlerfall
 
 * FunctionFailureEvent::FUNCTION_ON_FAILURE
+
+
+### Mitgelieferte Eventsubscriber
+
+#### Monolog
+Am besten zum Debuggen oder um den Ablauf der Logik zu verfolgen.
+Der übergebene Logger wird auch an den eigentlichen Job weitergegeben sofern er "LoggerAware" ist.
+
+#### MaxRunTime
+Prüft vor Beginn und nach Ende einer Abarbeitung, sowie wenn keine Jobs vorhanden sind, ob die Maximallaufzeit des Workers erreich ist.
+
+#### MemoryLimit
+Prüft vor Beginn und nach Ender einer Abarbeitung ob die angegebene Grenze an Speicher aufgebraucht/überschritten ist. In dem Falle würde der Worker beendet werden.

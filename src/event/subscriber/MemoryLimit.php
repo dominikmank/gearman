@@ -61,19 +61,6 @@ class MemoryLimit implements EventSubscriberInterface
         );
     }
 
-    private function informLogger()
-    {
-        if (!is_null($this->logger)) {
-            $this->logger->notice(
-                sprintf(
-                    'Memory limit almost exceeded. Max limit is %s, used %s so far.',
-                    $this->maxMemoryLimit,
-                    round((memory_get_usage(true) * 1.2) / 1048576, 2) . 'M'
-                )
-            );
-        }
-    }
-
     /**
      * @param $value
      * @return int
@@ -85,12 +72,26 @@ class MemoryLimit implements EventSubscriberInterface
 
         switch ($last) {
             case 'g':
+                $value *= 1024;
             case 'm':
+                $value *= 1024;
             case 'k':
                 $value *= 1024;
-                break;
         }
 
-        return (int)$value;
+        return $value;
+    }
+
+    private function informLogger()
+    {
+        if (!is_null($this->logger)) {
+            $this->logger->notice(
+                sprintf(
+                    'Memory limit almost exceeded. Max limit is %s, used %s so far.',
+                    $this->maxMemoryLimit,
+                    round((memory_get_usage(true) * 1.2) / 1048576, 2) . 'M'
+                )
+            );
+        }
     }
 }
