@@ -1,32 +1,40 @@
 {
-  "name": "dmank/gearman",
-  "type": "library",
-  "description": "Gearman Worker / Dispatcher Implementation",
-  "keywords": ["gearman", "php", "worker", "dispatcher"],
-  "authors": [{
-    "name": "Dominik Mank",
-    "email": "dominik@mank-online.de",
-    "role": "developer"
-  }],
-  "require" : {
-    "php" : ">=5.3.9",
-    "psr/log": "1.*@stable",
-    "symfony/event-dispatcher": "2.*@stable",
-    "ext-gearman": "*",
-    "ext-pcntl": "*"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "4.*@stable"
-  },
-  "minimum-stability": "stable",
-  "autoload" : {
-    "psr-4" : {
-      "dmank\\gearman\\" : "src/"
+    "name": "dmank/gearman",
+    "license": "MIT",
+    "type": "library",
+    "description": "Gearman Worker / Dispatcher Implementation",
+    "keywords": [
+        "gearman",
+        "php",
+        "worker",
+        "dispatcher"
+    ],
+    "authors": [
+        {
+            "name": "Dominik Mank",
+            "email": "dominik@mank-online.de",
+            "role": "developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "psr/log": "1.*@stable",
+        "symfony/event-dispatcher": "2.*@stable",
+        "ext-gearman": "*",
+        "ext-pcntl": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.*@stable"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "dmank\\gearman\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "tests\\dmank\\gearman\\": "tests/unit/"
+        }
     }
-  },
-  "autoload-dev" : {
-    "psr-4" : {
-      "tests\\dmank\\gearman\\" : "tests/unit/"
-    }
-  }
 }
