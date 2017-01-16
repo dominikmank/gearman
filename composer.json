@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.9",
+        "php": ">=5.5",
         "psr/log": "1.*@stable",
         "symfony/event-dispatcher": "2.*@stable",
         "ext-gearman": "*",
