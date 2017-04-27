@@ -15,9 +15,9 @@ class JobCollection implements \Countable
 
     /**
      * @param $jobName
-     * @param JobHandler $job
+     * @param JobHandlerInterface $job
      */
-    public function add($jobName, JobHandler $job)
+    public function add($jobName, JobHandlerInterface $job)
     {
         $this->jobs[$jobName] = $job;
     }
@@ -31,7 +31,7 @@ class JobCollection implements \Countable
         $count = 0;
 
         foreach ($jobs as $jobName => $job) {
-            if (!$job instanceof JobHandler) {
+            if (!$job instanceof JobHandlerInterface) {
                 continue;
             }
 

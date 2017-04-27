@@ -1,7 +1,7 @@
 <?php
 namespace dmank\gearman;
 
-interface JobHandler
+interface JobHandlerInterface
 {
     /**
      * @param Job $job

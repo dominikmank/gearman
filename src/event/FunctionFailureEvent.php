@@ -2,7 +2,7 @@
 namespace dmank\gearman\event;
 
 use dmank\gearman\Job;
-use dmank\gearman\JobHandler;
+use dmank\gearman\JobHandlerInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 class FunctionFailureEvent extends Event
@@ -10,7 +10,7 @@ class FunctionFailureEvent extends Event
     const FUNCTION_ON_FAILURE  = 'worker.function.on_failure';
 
     /**
-     * @var JobHandler
+     * @var JobHandlerInterface
      */
     private $jobHandler;
 
@@ -24,7 +24,7 @@ class FunctionFailureEvent extends Event
      */
     private $exception;
 
-    public function __construct(JobHandler $jobHandler, \Exception $exception, Job $job = null)
+    public function __construct(JobHandlerInterface $jobHandler, \Exception $exception, Job $job = null)
     {
         $this->jobHandler = $jobHandler;
         $this->exception = $exception;
@@ -32,7 +32,7 @@ class FunctionFailureEvent extends Event
     }
 
     /**
-     * @return JobHandler
+     * @return JobHandlerInterface
      */
     public function getJobHandler()
     {

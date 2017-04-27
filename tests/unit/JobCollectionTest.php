@@ -8,7 +8,7 @@ class JobCollectionTest extends \PHPUnit_Framework_TestCase
     public function testAddSingeJob()
     {
         $jobCollection = new JobCollection();
-        $jobHandlerMock = $this->getMockBuilder('\dmank\gearman\JobHandler')->getMock();
+        $jobHandlerMock = $this->getMockBuilder('\dmank\gearman\JobHandlerInterface')->getMock();
 
         $this->assertEquals(0, $jobCollection->count());
         $this->assertCount(0, $jobCollection->getJobs());
@@ -22,8 +22,8 @@ class JobCollectionTest extends \PHPUnit_Framework_TestCase
     public function testAddMultipleJobs()
     {
         $jobCollection = new JobCollection();
-        $jobHandlerMock = $this->getMockBuilder('\dmank\gearman\JobHandler')->getMock();
-        $jobHandlerMock2 = $this->getMockBuilder('\dmank\gearman\JobHandler')->getMock();
+        $jobHandlerMock = $this->getMockBuilder('\dmank\gearman\JobHandlerInterface')->getMock();
+        $jobHandlerMock2 = $this->getMockBuilder('\dmank\gearman\JobHandlerInterface')->getMock();
 
         $resultAdded = $jobCollection->addMultipleJobs(
             array('jobName1' => $jobHandlerMock, 'jobName2' => $jobHandlerMock2)
@@ -50,8 +50,8 @@ class JobCollectionTest extends \PHPUnit_Framework_TestCase
     public function testOverrideJob()
     {
         $jobCollection = new JobCollection();
-        $jobHandlerMock = $this->getMockBuilder('\dmank\gearman\JobHandler')->getMock();
-        $jobHandlerMock2 = $this->getMockBuilder('\dmank\gearman\JobHandler')->getMock();
+        $jobHandlerMock = $this->getMockBuilder('\dmank\gearman\JobHandlerInterface')->getMock();
+        $jobHandlerMock2 = $this->getMockBuilder('\dmank\gearman\JobHandlerInterface')->getMock();
 
         $jobCollection->add('testJob', $jobHandlerMock);
         $jobCollection->add('testJob', $jobHandlerMock2);

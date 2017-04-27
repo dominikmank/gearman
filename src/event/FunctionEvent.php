@@ -2,7 +2,7 @@
 namespace dmank\gearman\event;
 
 use dmank\gearman\Job;
-use dmank\gearman\JobHandler;
+use dmank\gearman\JobHandlerInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 class FunctionEvent extends Event
@@ -13,14 +13,14 @@ class FunctionEvent extends Event
     private $jobHandler;
     private $job;
 
-    public function __construct(JobHandler $jobHandler, Job $job)
+    public function __construct(JobHandlerInterface $jobHandler, Job $job)
     {
         $this->jobHandler = $jobHandler;
         $this->job = $job;
     }
 
     /**
-     * @return JobHandler
+     * @return JobHandlerInterface
      */
     public function getJobHandler()
     {

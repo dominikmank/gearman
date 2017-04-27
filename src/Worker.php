@@ -1,4 +1,5 @@
 <?php
+
 namespace dmank\gearman;
 
 use dmank\gearman\event\ConnectToServerEvent;
@@ -32,7 +33,7 @@ class Worker
     /**
      * @var JobCollection
      */
-    private $jobs = array();
+    private $jobs = [];
 
     /**
      * @var EventDispatcherInterface
@@ -43,7 +44,8 @@ class Worker
         ServerCollection $servers,
         JobCollection $jobs,
         EventDispatcherInterface $dispatcher
-    ) {
+    )
+    {
         $this->serverCollection = $servers;
         $this->jobs = $jobs;
         $this->dispatcher = $dispatcher;
@@ -180,7 +182,7 @@ class Worker
             );
         }
 
-        /* @var JobHandler $jobClass */
+        /* @var JobHandlerInterface $jobClass */
         foreach ($this->jobs->getJobs() as $jobName => $jobClass) {
             $this->realWorker->addFunction(
                 $jobName,

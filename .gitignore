@@ -5,7 +5,7 @@
 .vagrant
 *.sublime*
 .project
-.idea*
+.idea
 /build/
 vendor/
 /.metadata

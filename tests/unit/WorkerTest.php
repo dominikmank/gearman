@@ -15,7 +15,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
     private $workerImplementation;
 
     /**
-     * @var \dmank\gearman\JobHandler
+     * @var \dmank\gearman\JobHandlerInterface
      */
     private $jobHandler;
 
@@ -26,7 +26,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
         $this->workerImplementation = $this->getMockBuilder('\GearmanWorker')
             ->setMethods(array('addFunction', 'addServer', 'work'))->getMock();
 
-        $this->jobHandler = $this->getMockBuilder('\dmank\gearman\JobHandler')->getMock();
+        $this->jobHandler = $this->getMockBuilder('\dmank\gearman\JobHandlerInterface')->getMock();
 
     }
 
