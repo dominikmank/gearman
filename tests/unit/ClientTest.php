@@ -3,6 +3,7 @@ namespace tests\dmank\gearman;
 
 use dmank\gearman\Client;
 use dmank\gearman\JobStatus;
+use dmank\gearman\Job;
 use dmank\gearman\Server;
 use dmank\gearman\ServerCollection;
 
@@ -97,6 +98,31 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client->setImplementation($this->mockedImplementation);
 
         $client->executeJob('foo', 'bar');
+    }
+
+    public function testExecuteJobs()
+    {
+        $server = new Server();
+        $serverCollection = $this->getMockBuilder('\dmank\gearman\ServerCollection')->getMock();
+        $serverCollection->expects($this->once())
+            ->method('getServers')
+            ->will($this->returnValue(array($server)));
+
+        $job = new Job('JobName', 'WorkLoads');
+        $this->mockedImplementation->expects($this->once())
+            ->method('addTask')
+            ->with($job->getJobName(), $job->getWorkLoad());
+        $this->mockedImplementation->expects($this->once())
+            ->method('runTasks');
+
+        $client = new Client($serverCollection);
+        $client->setImplementation($this->mockedImplementation);
+
+        $jobs = [];
+        $jobs[] = $job;
+        $jobs[] = 'Something can not be accpeted';
+
+        $client->executeJobs($jobs);
     }
 
     public function asyncProvider()
