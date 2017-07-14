@@ -105,6 +105,33 @@ class Client
     }
 
     /**
+     * @param array $jobs Array of dmank\gearman\Job, jobs to do
+     * @param int   $priority
+     * @return array
+     */
+    public function executeJobs(array $jobs, $priority = self::PRIORITY_LOW)
+    {
+        $client = $this->getClient();
+
+        $results = [];
+        $client->setCompleteCallback(function($task) use (&$results) {
+            $results[] = $task->data();
+        });
+
+        foreach ($jobs as $job) {
+            if (!is_a($job, Job::class)) {
+                continue;
+            }
+
+            $client->addTask($job->getJobName(), $job->getWorkLoad());
+        }
+
+        $client->runTasks();
+
+        return $results;
+    }
+
+    /**
      * @return \GearmanClient
      */
     private function getClient()
