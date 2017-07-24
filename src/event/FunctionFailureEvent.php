@@ -40,7 +40,7 @@ class FunctionFailureEvent extends Event
     }
 
     /**
-     * @return JobInterface|null
+     * @return JobInterface
      */
     public function getJob()
     {

@@ -18,7 +18,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->mockedImplementation = $this->getMockBuilder('\GearmanClient')->getMock();
+        $this->mockedImplementation = $this->getMockBuilder(\GearmanClient::class)->getMock();
     }
 
     public function testImplementation()
@@ -31,6 +31,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider asyncProvider
+     * @param $method
+     * @param $workload
+     * @param $priority
+     * @param $implementationName
      */
     public function testAsyncExecution($method, $workload, $priority, $implementationName)
     {
@@ -65,6 +69,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider promptProvider
+     * @param $method
+     * @param $workload
+     * @param $priority
+     * @param $implementationName
      */
     public function testPromptExecution($method, $workload, $priority, $implementationName)
     {
@@ -84,7 +92,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testAddServerToClient()
     {
         $server = new Server();
-        $serverCollection = $this->getMockBuilder('\dmank\gearman\ServerCollection')->getMock();
+        $serverCollection = $this->getMockBuilder(ServerCollection::class)->getMock();
         $serverCollection->expects($this->once())
             ->method('getServers')
             ->will($this->returnValue(array($server)));
@@ -103,7 +111,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testExecuteJobs()
     {
         $server = new Server();
-        $serverCollection = $this->getMockBuilder('\dmank\gearman\ServerCollection')->getMock();
+        $serverCollection = $this->getMockBuilder(ServerCollection::class)->getMock();
         $serverCollection->expects($this->once())
             ->method('getServers')
             ->will($this->returnValue(array($server)));

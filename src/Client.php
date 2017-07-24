@@ -1,4 +1,5 @@
 <?php
+
 namespace dmank\gearman;
 
 class Client
@@ -106,7 +107,7 @@ class Client
 
     /**
      * @param array $jobs Array of dmank\gearman\Job, jobs to do
-     * @param int   $priority
+     * @param int $priority
      * @return array
      */
     public function executeJobs(array $jobs, $priority = self::PRIORITY_LOW)
@@ -114,7 +115,7 @@ class Client
         $client = $this->getClient();
 
         $results = [];
-        $client->setCompleteCallback(function($task) use (&$results) {
+        $client->setCompleteCallback(function ($task) use (&$results) {
             $results[] = $task->data();
         });
 
@@ -157,9 +158,7 @@ class Client
      */
     private function createClient()
     {
-        $client = new \GearmanClient();
-
-        return $client;
+        return new \GearmanClient();
     }
 
     private function getPriorityNormalMethod()

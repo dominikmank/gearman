@@ -44,8 +44,7 @@ class Worker
         ServerCollection $servers,
         JobCollection $jobs,
         EventDispatcherInterface $dispatcher
-    )
-    {
+    ) {
         $this->serverCollection = $servers;
         $this->jobs = $jobs;
         $this->dispatcher = $dispatcher;
@@ -117,8 +116,6 @@ class Worker
             );
 
         }
-
-        return;
     }
 
     /**

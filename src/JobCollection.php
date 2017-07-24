@@ -14,12 +14,11 @@ class JobCollection implements \Countable
     }
 
     /**
-     * @param $jobName
      * @param JobHandlerInterface $job
      */
-    public function add($jobName, JobHandlerInterface $job)
+    public function add(JobHandlerInterface $job)
     {
-        $this->jobs[$jobName] = $job;
+        $this->jobs[$job->listensToJob()] = $job;
     }
 
     /**
@@ -30,12 +29,12 @@ class JobCollection implements \Countable
     {
         $count = 0;
 
-        foreach ($jobs as $jobName => $job) {
+        foreach ($jobs as $job) {
             if (!$job instanceof JobHandlerInterface) {
                 continue;
             }
 
-            $this->add($jobName, $job);
+            $this->add($job);
 
             $count++;
         }

@@ -1,7 +1,6 @@
 <?php
 namespace dmank\gearman\event;
 
-use dmank\gearman\Job;
 use dmank\gearman\JobHandlerInterface;
 use dmank\gearman\JobInterface;
 use Symfony\Component\EventDispatcher\Event;

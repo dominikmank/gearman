@@ -7,6 +7,8 @@ class StringHelperTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider serializeProvider
+     * @param $input
+     * @param $expected
      */
     public function testIsSerialized($input, $expected)
     {
