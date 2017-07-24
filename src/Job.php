@@ -1,7 +1,7 @@
 <?php
 namespace dmank\gearman;
 
-class Job
+class Job implements JobInterface
 {
     private $workLoad;
 

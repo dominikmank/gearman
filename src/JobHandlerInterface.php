@@ -4,8 +4,8 @@ namespace dmank\gearman;
 interface JobHandlerInterface
 {
     /**
-     * @param Job $job
+     * @param JobInterface $job
      * @return mixed
      */
-    public function execute(Job $job);
+    public function execute(JobInterface $job);
 }
