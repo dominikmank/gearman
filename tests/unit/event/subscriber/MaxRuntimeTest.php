@@ -3,19 +3,21 @@ namespace tests\dmank\gearman\event\subscriber;
 
 use dmank\gearman\event\subscriber\MaxRuntime;
 use dmank\gearman\event\WorkerEvent;
+use Psr\Log\LoggerInterface;
+use dmank\gearman\Worker;
 
 class MaxRuntimeTest extends \PHPUnit_Framework_TestCase
 {
     public function testMaxRuntimeExceeded()
     {
-        $worker = $this->getMockBuilder('dmank\gearman\Worker')
+        $worker = $this->getMockBuilder(Worker::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $worker->expects($this->exactly(2))
             ->method('destroyWorker');
 
-        $logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+        $logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
 
         $logger->expects($this->exactly(2))
             ->method('notice');
@@ -30,7 +32,7 @@ class MaxRuntimeTest extends \PHPUnit_Framework_TestCase
     public function testMaxRunTimeNotExceeded()
     {
         $subscriber = new MaxRuntime('+1 year');
-        $worker = $this->getMockBuilder('dmank\gearman\Worker')
+        $worker = $this->getMockBuilder(Worker::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -44,11 +46,11 @@ class MaxRuntimeTest extends \PHPUnit_Framework_TestCase
 
     public function testOnBeforeRunInform()
     {
-        $worker = $this->getMockBuilder('dmank\gearman\Worker')
+        $worker = $this->getMockBuilder(Worker::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
+        $logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
 
         $logger->expects($this->once())
             ->method('notice');

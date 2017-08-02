@@ -5,9 +5,6 @@ use dmank\gearman\JobStatus;
 
 class JobStatusTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @return bool
-     */
     public function testIsKnown()
     {
         $statusFalse = new JobStatus(array(0, 0, 0, 0));
@@ -16,10 +13,6 @@ class JobStatusTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($statusFalse->isKnown());
         $this->assertTrue($statusTrue->isKnown());
     }
-
-    /**
-     * @return bool
-     */
     public function testIsRunning()
     {
         $statusFalse = new JobStatus(array(0, 0, 0, 0));
@@ -29,9 +22,6 @@ class JobStatusTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($statusTrue->isRunning());
     }
 
-    /**
-     * @return bool
-     */
     public function testIsCompleted()
     {
         $statusFalse = new JobStatus(array(1, 1, 0, 0));

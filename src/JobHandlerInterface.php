@@ -8,4 +8,7 @@ interface JobHandlerInterface
      * @return mixed
      */
     public function execute(JobInterface $job);
+
+    /** @return string */
+    public function listensToJob();
 }

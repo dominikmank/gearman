@@ -6,6 +6,7 @@ use dmank\gearman\Server;
 use dmank\gearman\ServerCollection;
 use dmank\gearman\Worker;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use dmank\gearman\JobHandlerInterface;
 
 class WorkerTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,10 +24,10 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->workerImplementation = $this->getMockBuilder('\GearmanWorker')
+        $this->workerImplementation = $this->getMockBuilder(\GearmanWorker::class)
             ->setMethods(array('addFunction', 'addServer', 'work'))->getMock();
 
-        $this->jobHandler = $this->getMockBuilder('\dmank\gearman\JobHandlerInterface')->getMock();
+        $this->jobHandler = $this->getMockBuilder(JobHandlerInterface::class)->getMock();
 
     }
 
@@ -41,7 +42,7 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
             ->method('addFunction');
 
         $jobCollection = new JobCollection();
-        $jobCollection->add('foo', $this->jobHandler);
+        $jobCollection->add($this->jobHandler);
 
         $worker = new Worker($serverCollection, $jobCollection, new EventDispatcher());
         $worker->setImplementation($this->workerImplementation);
@@ -70,9 +71,18 @@ class WorkerTest extends \PHPUnit_Framework_TestCase
 
     public function testRegisterFunction()
     {
+        $this->jobHandler->expects($this->exactly(2))
+            ->method('listensToJob')
+            ->willReturnOnConsecutiveCalls(
+                'foo',
+                'baz'
+            );
+
         $jobCollection = new JobCollection();
-        $jobCollection->add('foo', $this->jobHandler);
-        $jobCollection->add('baz', $this->jobHandler);
+        $jobCollection->add($this->jobHandler);
+        $jobCollection->add($this->jobHandler);
+
+
 
 
         $serverCollection = new ServerCollection();
