@@ -40,6 +40,11 @@ class Worker
      */
     private $dispatcher;
 
+    /**
+     * @var bool
+     */
+    private $killRequested = false;
+
     public function __construct(
         ServerCollection $servers,
         JobCollection $jobs,
@@ -231,7 +236,7 @@ class Worker
             $this->getWorker()->work() ||
             $this->getWorker()->returnCode() == GEARMAN_IO_WAIT ||
             $this->getWorker()->returnCode() == GEARMAN_NO_JOBS
-        );
+        ) && !$this->killRequested;
     }
 
     public function destroyWorker()
@@ -241,9 +246,6 @@ class Worker
             new WorkerEvent($this)
         );
 
-        unset($this->realWorker);
-        $this->realWorker = null;
-
-        posix_kill(posix_getpid(), SIGTERM);
+        $this->killRequested = true;
     }
 }
