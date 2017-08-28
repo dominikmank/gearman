@@ -215,6 +215,10 @@ class Worker
                         $result = $e;
                     }
 
+                    if (is_object($result) || is_array($result)) {
+                        $result = serialize($result);
+                    }
+
                     $gearmanJob->sendComplete($result);
                 }
             );
