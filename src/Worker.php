@@ -203,7 +203,7 @@ class Worker
 
                         $this->getEventDispatcher()->dispatch(
                             FunctionEvent::FUNCTION_AFTER_EXECUTE,
-                            new FunctionEvent($jobClass, $job)
+                            new FunctionEvent($jobClass, $job, $result)
                         );
                     } catch (\Exception $e) {
 
