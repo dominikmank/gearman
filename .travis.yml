@@ -7,6 +7,7 @@ php:
 
 install:
 - sudo apt-get install gearman gearman-job-server libgearman-dev
+- pecl channel-update pecl.php.net
 - printf "\n" |  pecl install gearman-1.0.3
 - travis_retry composer install --no-interaction --prefer-source
 
