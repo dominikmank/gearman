@@ -12,11 +12,24 @@ class FunctionEvent extends Event
 
     private $jobHandler;
     private $job;
+    /**
+     * @var array
+     */
+    private $result;
 
-    public function __construct(JobHandlerInterface $jobHandler, JobInterface $job)
+    public function __construct(JobHandlerInterface $jobHandler, JobInterface $job, $result = [])
     {
         $this->jobHandler = $jobHandler;
         $this->job = $job;
+        $this->result = $result;
+    }
+
+    /**
+     * @return array
+     */
+    public function getResult()
+    {
+        return $this->result;
     }
 
     /**
