@@ -43,11 +43,27 @@ class JobCollection implements \Countable
     }
 
     /**
-     * @return array of JobHandler
+     * @return JobHandlerInterface[]
      */
     public function getJobs()
     {
         return $this->jobs;
+    }
+
+    /**
+     * @param $jobName
+     * @return JobHandlerInterface|null
+     */
+    public function getJob($jobName)
+    {
+        /** @var JobHandlerInterface $job  */
+        foreach ($this->getJobs() as $job) {
+            if ($job->listensToJob() === $jobName) {
+                return $job;
+            }
+        }
+
+        return null;
     }
 
     /**
