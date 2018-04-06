@@ -45,14 +45,21 @@ class Worker
      */
     private $killRequested = false;
 
+    /**
+     * @var int
+     */
+    private $runInterval = 0;
+
     public function __construct(
         ServerCollection $servers,
         JobCollection $jobs,
-        EventDispatcherInterface $dispatcher
+        EventDispatcherInterface $dispatcher,
+        $runInterval = 50000
     ) {
         $this->serverCollection = $servers;
         $this->jobs = $jobs;
         $this->dispatcher = $dispatcher;
+        $this->runInterval = $runInterval;
     }
 
     /**
@@ -111,6 +118,7 @@ class Worker
                     );
                 }
 
+                usleep($this->runInterval);
             }
         } catch (NoFunctionGiven $e) {
             throw $e;
