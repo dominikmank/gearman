@@ -19,7 +19,7 @@
     "require": {
         "php": ">=5.5",
         "psr/log": "^1",
-        "symfony/event-dispatcher": "^3",
+        "symfony/event-dispatcher": "^3 || ^4",
         "ext-gearman": "*",
         "ext-pcntl": "*"
     },
